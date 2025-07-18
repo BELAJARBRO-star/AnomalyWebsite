@@ -1,0 +1,643 @@
+<body style="background-color: #330000; color: white; font-family: Arial, sans-serif; margin: 0; padding: 0;">
+  <div style="padding: 20px; text-align: center;">
+    <h1 style="color: #ffdddd;">AnomalyStore</h1>
+    <p>Selamat datang di toko online resmi kami.</p>
+  </div>
+
+  <div id="app" style="max-width: 500px; margin: auto; padding: 20px;">
+
+    <!-- LOGIN -->
+    <div id="login-form">
+      <h2>Login</h2>
+      <input id="login-username" placeholder="Username / Email">
+      <input id="login-password" type="password" placeholder="Password">
+      <button onclick="loginUser()">Login</button>
+      <div style="text-align:center;">
+        <button class="link-btn" onclick="goToWhatsApp()">Lupa Password</button> |
+        <button class="link-btn" onclick="showRegisterForm()">Daftar Akun</button>
+      </div>
+      <p id="login-error" style="color:red;"></p>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="register-form" style="display:none;">
+      <h2>Daftar Akun</h2>
+      <input id="register-username" placeholder="Username (minimal 5 huruf)">
+      <input id="register-email" placeholder="Email">
+      <input id="register-password" type="password" placeholder="Password (minimal 5 huruf & 1 huruf)">
+      <button onclick="registerUser()">Daftar</button>
+      <p id="register-error" style="color:red;"></p>
+      <p id="register-success" style="color:lightgreen;"></p>
+      <button class="link-btn" onclick="showLoginForm()">Kembali ke Login</button>
+    </div>
+
+    <!-- RESET PASSWORD -->
+    <div id="reset-form" style="display:none;">
+      <h2>Reset Password</h2>
+      <input id="reset-username" placeholder="Username / Email">
+      <input id="reset-password" type="password" placeholder="Password Baru (min 5 huruf & 1 huruf)">
+      <button onclick="resetPassword()">Reset Password</button>
+      <p id="reset-error" style="color:red;"></p>
+      <p id="reset-success" style="color:lightgreen;"></p>
+      <button class="link-btn" onclick="showLoginForm()">Kembali ke Login</button>
+    </div>
+
+    <!-- HOME -->
+    <div id="home-section" style="display:none;">
+      <h2>Beranda AnomalyStore</h2>
+      <p>Silakan pilih produk:</p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; justify-content: center;">
+
+        <!-- Produk Akun Epep -->
+        <div style="background: #600000; padding: 15px; border-radius: 10px; width: 200px;">
+          <img src="https://files.catbox.moe/so4g8i.jpg" style="width: 100%; border-radius: 10px;">
+          <h3>Akun Epep Tidak Dijual</h3>
+          <a href="https://wa.me/62895351679334?text=permisi%20akun%20epepnya%20ada%20tidak%20saya%20mau%20beli" target="_blank">
+            <button style="background-color: white; color: black; padding: 10px; width: 100%;">Beli Sekarang</button>
+          </a>
+          <div class="rating-section" data-product="Akun Epep">
+            <h4>Ulasan & Rating</h4>
+            <div class="stars" data-product="Akun Epep">
+              <span class="star" data-value="1">&#9733;</span>
+              <span class="star" data-value="2">&#9733;</span>
+              <span class="star" data-value="3">&#9733;</span>
+              <span class="star" data-value="4">&#9733;</span>
+              <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <textarea class="review-text" placeholder="Tulis ulasan Anda..."></textarea>
+            <button class="submit-review" onclick="submitReview('Akun Epep')">Kirim Ulasan</button>
+            <div class="reviews-list" id="reviews-Akun Epep"></div>
+          </div>
+        </div>
+
+        <!-- Produk Akun Roblox -->
+        <div style="background: #600000; padding: 15px; border-radius: 10px; width: 200px;">
+          <img src="https://files.catbox.moe/z5dfkb.jpg" style="width: 100%; border-radius: 10px;">
+          <h3>Akun Roblox GG 50K</h3>
+          <a href="https://wa.me/62895351679334?text=Woi%20Admin%20gw%20mau%20akun%20yang%2050K%20masi%20ready%20ga%20hytam" target="_blank">
+            <button style="background-color: white; color: black; padding: 10px; width: 100%;">Beli Sekarang</button>
+          </a>
+          <div class="rating-section" data-product="Akun Roblox">
+            <h4>Ulasan & Rating</h4>
+            <div class="stars" data-product="Akun Roblox">
+              <span class="star" data-value="1">&#9733;</span>
+              <span class="star" data-value="2">&#9733;</span>
+              <span class="star" data-value="3">&#9733;</span>
+              <span class="star" data-value="4">&#9733;</span>
+              <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <textarea class="review-text" placeholder="Tulis ulasan Anda..."></textarea>
+            <button class="submit-review" onclick="submitReview('Akun Roblox')">Kirim Ulasan</button>
+            <div class="reviews-list" id="reviews-Akun Roblox"></div>
+          </div>
+        </div>
+
+        <!-- Produk Robux dengan Stok -->
+        <div style="background: #600000; padding: 15px; border-radius: 10px; width: 200px;">
+          <img src="https://files.catbox.moe/3353dh.jpg" style="width: 100%; border-radius: 10px;">
+          <h3>Robux HABIS</h3>
+          <p>Stok: HABIS <span id="stok-robux">0</span></p>
+          <button onclick="beliRobux()" style="background-color: white; color: black; padding: 10px; width: 100%;">Beli</button>
+          <div class="rating-section" data-product="Robux">
+            <h4>Ulasan & Rating</h4>
+            <div class="stars" data-product="Robux">
+              <span class="star" data-value="1">&#9733;</span>
+              <span class="star" data-value="2">&#9733;</span>
+              <span class="star" data-value="3">&#9733;</span>
+              <span class="star" data-value="4">&#9733;</span>
+              <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <textarea class="review-text" placeholder="Tulis ulasan Anda..."></textarea>
+            <button class="submit-review" onclick="submitReview('Robux')">Kirim Ulasan</button>
+            <div class="reviews-list" id="reviews-Robux"></div>
+          </div>
+        </div>
+
+        <!-- Produk Bound dengan Stok -->
+        <div style="background: #600000; padding: 15px; border-radius: 10px; width: 200px;">
+          <img src="https://files.catbox.moe/xpjea7.jpg" style="width: 100%; border-radius: 10px;">
+          <h3>Bound HABIS</h3>
+          <p>Stok: HABIS<span id="stok-bound">0</span></p>
+          <button onclick="beliBound()" style="background-color: white; color: black; padding: 10px; width: 100%;">Beli</button>
+          <div class="rating-section" data-product="Bound">
+            <h4>Ulasan & Rating</h4>
+            <div class="stars" data-product="Bound">
+              <span class="star" data-value="1">&#9733;</span>
+              <span class="star" data-value="2">&#9733;</span>
+              <span class="star" data-value="3">&#9733;</span>
+              <span class="star" data-value="4">&#9733;</span>
+              <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <textarea class="review-text" placeholder="Tulis ulasan Anda..."></textarea>
+            <button class="submit-review" onclick="submitReview('Bound')">Kirim Ulasan</button>
+            <div class="reviews-list" id="reviews-Bound"></div>
+          </div>
+        </div>
+
+      </div>
+
+<!-- Bagian Pembayaran Baru -->
+      <div style="background: #440000; padding: 20px; border-radius: 10px; margin-top: 30px;">
+        <h3>Metode Pembayaran</h3>
+        <p>Silakan pilih metode pembayaran dan transfer ke rekening berikut:</p>
+
+        <div style="margin-bottom: 15px;">
+          <h4>Transfer Bank/E-Wallet</h4>
+          <ul>
+            <li><strong>Dana:</strong> 082112301183</li>
+            <li><strong>Go-Pay:</strong> 0895351679334</li>
+          </ul>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <h4>QRIS Allpay</h4>
+          <p style="color: yellow;">Jika akun Saldo Anda tidak premium, silakan hubungi nomor di bawah ini untuk meminta QRIS Allpay agar transaksi berhasil.</p>
+          <button onclick="requestQris()" style="background-color: #28a745; color: white; padding: 10px; width: 100%; border: none; border-radius: 5px;">Minta QRIS Allpay via WhatsApp</button>
+        </div>
+
+        <p style="margin-top: 20px;">Setelah melakukan pembayaran, **wajib** konfirmasi ke nomor WhatsApp kami:</p>
+        <a href="https://wa.me/62895351679334" target="_blank">
+          <button style="background-color: white; color: black; padding: 10px; width: 100%;">Konfirmasi Pembayaran via WhatsApp</button>
+        </a>
+        <!-- Upload Bukti Pembayaran -->
+<div style="margin-top: 20px;">
+  <h4>Upload Bukti Transfer</h4>
+
+  <!-- Pilih produk -->
+  <select id="produk-pilihan" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+    <option value="">Pilih produk yang dibayar</option>
+    <option value="Akun Epep">Akun Epep</option>
+    <option value="Akun Roblox">Akun Roblox</option>
+    <option value="Robux">Robux</option>
+    <option value="Bound">Bound</option>
+  </select>
+
+  <!-- Upload file gambar -->
+  <input type="file" id="bukti-transfer" accept="image/*">
+
+  <!-- Tombol kirim -->
+  <button onclick="kirimBukti()" style="margin-top: 10px; background-color: #ffc107; color: black; padding: 10px; width: 100%;">Kirim Bukti Pembayaran</button>
+
+  <!-- Status -->
+  <p id="bukti-status" style="color: lightgreen; margin-top: 10px;"></p>
+</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const users = JSON.parse(localStorage.getItem("anom_users") || "[]");
+    let allowReset = false;
+
+    // Data ulasan dan rating
+    const productReviews = JSON.parse(localStorage.getItem("anom_reviews") || "{}");
+
+    function hasLetter(str) {
+      return /[a-zA-Z]/.test(str);
+    }
+
+    function hideAll() {
+      ["login-form", "register-form", "reset-form", "home-section"].forEach(id => {
+        document.getElementById(id).style.display = "none";
+      });
+    }
+
+    function showLoginForm() {
+      hideAll(); document.getElementById("login-form").style.display = "block";
+    }
+
+    function showRegisterForm() {
+      hideAll(); document.getElementById("register-form").style.display = "block";
+    }
+
+    function registerUser() {
+      const username = document.getElementById("register-username").value.trim();
+      const email = document.getElementById("register-email").value.trim();
+      const password = document.getElementById("register-password").value.trim();
+      const err = document.getElementById("register-error");
+      const success = document.getElementById("register-success");
+      err.textContent = ""; success.textContent = "";
+
+      if (username.replace(/\s/g, "").length < 5) {
+        err.textContent = "Username wajib lebih dari 5 huruf.";
+        return;
+      }
+      if (password.replace(/\s/g, "").length < 5 || !hasLetter(password)) {
+        err.textContent = "Password wajib lebih dari 5 huruf dan mengandung huruf.";
+        return;
+      }
+      if (username === password) {
+        err.textContent = "Username dan Password tidak boleh sama.";
+        return;
+      }
+      if (users.find(u => u.username === username || u.email === email)) {
+        err.textContent = "Username atau Email sudah digunakan.";
+        return;
+      }
+
+      users.push({ username, email, password });
+      localStorage.setItem("anom_users", JSON.stringify(users));
+      success.textContent = "Selamat kamu berhasil mendaftar!";
+      setTimeout(showLoginForm, 2000);
+    }
+
+    function loginUser() {
+      const uname = document.getElementById("login-username").value.trim();
+      const pass = document.getElementById("login-password").value.trim();
+      const err = document.getElementById("login-error");
+      const found = users.find(u => (u.username === uname || u.email === uname) && u.password === pass);
+      if (!found) {
+        err.textContent = "Username atau Password salah.";
+        return;
+      }
+      err.textContent = "";
+      hideAll();
+      document.getElementById("home-section").style.display = "block";
+      loadReviews(); // Muat ulasan saat login
+    }
+
+    function logout() {
+      showLoginForm();
+    }
+
+    function goToWhatsApp() {
+      window.open("https://wa.me/6285836270700", "_blank");
+      allowReset = true;
+      setTimeout(() => {
+        hideAll(); document.getElementById("reset-form").style.display = "block";
+      }, 1000);
+    }
+
+    function resetPassword() {
+      if (!allowReset) {
+        alert("Silakan hubungi CS via WhatsApp terlebih dahulu.");
+        return;
+      }
+      const uname = document.getElementById("reset-username").value.trim();
+      const newPass = document.getElementById("reset-password").value.trim();
+      const err = document.getElementById("reset-error");
+      const success = document.getElementById("reset-success");
+      const index = users.findIndex(u => u.username === uname || u.email === uname);
+      if (index === -1) {
+        err.textContent = "Akun tidak ditemukan.";
+        return;
+      }
+      if (newPass.replace(/\s/g, "").length < 5 || !hasLetter(newPass)) {
+        err.textContent = "Password baru tidak valid.";
+        return;
+      }
+      users[index].password = newPass;
+      localStorage.setItem("anom_users", JSON.stringify(users));
+      success.textContent = "Password berhasil diganti!";
+      setTimeout(showLoginForm, 2000);
+    }
+
+    // Fitur stok untuk Robux dan Bound
+    let stokRobux = 10;
+    let stokBound = 5;
+
+    function beliRobux() {
+      if (stokRobux > 0) {
+        stokRobux--;
+        document.getElementById('stok-robux').innerText = stokRobux;
+        window.open('https://wa.me/62895351679334?text=permisi%20saya%20mau%20beli%20robux', '_blank');
+      } else {
+        alert('Stok Robux habis!');
+      }
+    }
+
+    function beliBound() {
+      if (stokBound > 0) {
+        stokBound--;
+        document.getElementById('stok-bound').innerText = stokBound;
+        window.open('https://wa.me/62895351679334?text=permisi%20saya%20mau%20beli%20bound', '_blank');
+      } else {
+        alert('Stok Bound habis!');
+      }
+    }
+
+    // Fungsi untuk meminta QRIS Allpay
+    function requestQris() {
+      window.open('https://wa.me/62895351679334?text=Halo,%20saya%20ingin%20meminta%20QRIS%20Allpay%20untuk%20pembayaran.', '_blank');
+    }
+
+    // Fitur Ulasan dan Rating
+    document.querySelectorAll('.stars .star').forEach(star => {
+      star.addEventListener('click', function() {
+        const product = this.closest('.rating-section').dataset.product;
+        const rating = parseInt(this.dataset.value);
+        setRating(product, rating);
+      });
+    });
+
+    function setRating(product, rating) {
+      const starsContainer = document.querySelector(`.stars[data-product="${product}"]`);
+      starsContainer.querySelectorAll('.star').forEach((star, index) => {
+        if (index < rating) {
+          star.style.color = 'gold';
+        } else {
+          star.style.color = 'white';
+        }
+      });
+      // Simpan rating sementara di elemen untuk submit
+      starsContainer.dataset.currentRating = rating;
+    }
+
+    function submitReview(product) {
+      const reviewTextElement = document.querySelector(`.rating-section[data-product="${product}"] .review-text`);
+      const reviewText = reviewTextElement.value.trim();
+      const starsContainer = document.querySelector(`.stars[data-product="${product}"]`);
+      const rating = parseInt(starsContainer.dataset.currentRating || 0); // Ambil rating yang dipilih
+
+      if (reviewText === "" && rating === 0) {
+        alert("Mohon berikan rating atau tulis ulasan Anda.");
+        return;
+      }
+
+      if (!productReviews[product]) {
+        productReviews[product] = [];
+      }
+
+      const newReview = {
+        text: reviewText,
+        rating: rating,
+        date: new Date().toLocaleDateString()
+      };
+
+      productReviews[product].push(newReview);
+      localStorage.setItem("anom_reviews", JSON.stringify(productReviews));
+
+      reviewTextElement.value = ""; // Bersihkan textarea
+      setRating(product, 0); // Reset rating visual
+      displayReviews(product); // Tampilkan ulasan terbaru
+      alert("Ulasan Anda berhasil dikirim!");
+    }
+
+    function displayReviews(product) {
+      const reviewsListElement = document.getElementById(`reviews-${product}`);
+      if (!reviewsListElement) return;
+
+      reviewsListElement.innerHTML = ''; // Bersihkan daftar ulasan sebelumnya
+
+      if (productReviews[product] && productReviews[product].length > 0) {
+        productReviews[product].forEach(review => {
+          const reviewDiv = document.createElement('div');
+          reviewDiv.style.borderTop = '1px solid #555';
+          reviewDiv.style.paddingTop = '10px';
+          reviewDiv.style.marginTop = '10px';
+
+          const ratingStars = '&#9733;'.repeat(review.rating) + '&#9734;'.repeat(5 - review.rating);
+          reviewDiv.innerHTML = `
+            <p style="margin: 0;">Rating: <span style="color: gold;">${ratingStars}</span></p>
+            <p style="margin: 5px 0;">"${review.text}"</p>
+            <small style="color: #aaa;">Tanggal: ${review.date}</small>
+          `;
+          reviewsListElement.appendChild(reviewDiv);
+        });
+      } else {
+        reviewsListElement.innerHTML = '<p style="color: #aaa;">Belum ada ulasan untuk produk ini.</p>';
+      }
+    }
+
+    function loadReviews() {
+      // Panggil displayReviews untuk setiap produk saat halaman dimuat
+      document.querySelectorAll('.rating-section').forEach(section => {
+        const product = section.dataset.product;
+        displayReviews(product);
+      });
+    }
+
+    showLoginForm();
+  </script>
+</body>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    const users = JSON.parse(localStorage.getItem("anom_users") || "[]");
+    let allowReset = false;
+
+    // Data ulasan dan rating
+    const productReviews = JSON.parse(localStorage.getItem("anom_reviews") || "{}");
+
+    function hasLetter(str) {
+      return /[a-zA-Z]/.test(str);
+    }
+
+    function hideAll() {
+      ["login-form", "register-form", "reset-form", "home-section"].forEach(id => {
+        document.getElementById(id).style.display = "none";
+      });
+    }
+
+    function showLoginForm() {
+      hideAll(); document.getElementById("login-form").style.display = "block";
+    }
+
+    function showRegisterForm() {
+      hideAll(); document.getElementById("register-form").style.display = "block";
+    }
+
+    function registerUser() {
+      const username = document.getElementById("register-username").value.trim();
+      const email = document.getElementById("register-email").value.trim();
+      const password = document.getElementById("register-password").value.trim();
+      const err = document.getElementById("register-error");
+      const success = document.getElementById("register-success");
+      err.textContent = ""; success.textContent = "";
+
+      if (username.replace(/\s/g, "").length < 5) {
+        err.textContent = "Username wajib lebih dari 5 huruf.";
+        return;
+      }
+      if (password.replace(/\s/g, "").length < 5 || !hasLetter(password)) {
+        err.textContent = "Password wajib lebih dari 5 huruf dan mengandung huruf.";
+        return;
+      }
+      if (username === password) {
+        err.textContent = "Username dan Password tidak boleh sama.";
+        return;
+      }
+      if (users.find(u => u.username === username || u.email === email)) {
+        err.textContent = "Username atau Email sudah digunakan.";
+        return;
+      }
+
+      users.push({ username, email, password });
+      localStorage.setItem("anom_users", JSON.stringify(users));
+      success.textContent = "Selamat kamu berhasil mendaftar!";
+      setTimeout(showLoginForm, 2000);
+    }
+
+    function loginUser() {
+      const uname = document.getElementById("login-username").value.trim();
+      const pass = document.getElementById("login-password").value.trim();
+      const err = document.getElementById("login-error");
+      const found = users.find(u => (u.username === uname || u.email === uname) && u.password === pass);
+      if (!found) {
+        err.textContent = "Username atau Password salah.";
+        return;
+      }
+      err.textContent = "";
+      hideAll();
+      document.getElementById("home-section").style.display = "block";
+      loadReviews(); // Muat ulasan saat login
+    }
+
+    function logout() {
+      showLoginForm();
+    }
+
+    function goToWhatsApp() {
+      window.open("https://wa.me/6285836270700", "_blank");
+      allowReset = true;
+      setTimeout(() => {
+        hideAll(); document.getElementById("reset-form").style.display = "block";
+      }, 1000);
+    }
+
+    function resetPassword() {
+      if (!allowReset) {
+        alert("Silakan hubungi CS via WhatsApp terlebih dahulu.");
+        return;
+      }
+      const uname = document.getElementById("reset-username").value.trim();
+      const newPass = document.getElementById("reset-password").value.trim();
+      const err = document.getElementById("reset-error");
+      const success = document.getElementById("reset-success");
+      const index = users.findIndex(u => u.username === uname || u.email === uname);
+      if (index === -1) {
+        err.textContent = "Akun tidak ditemukan.";
+        return;
+      }
+      if (newPass.replace(/\s/g, "").length < 5 || !hasLetter(newPass)) {
+        err.textContent = "Password baru tidak valid.";
+        return;
+      }
+      users[index].password = newPass;
+      localStorage.setItem("anom_users", JSON.stringify(users));
+      success.textContent = "Password berhasil diganti!";
+      setTimeout(showLoginForm, 2000);
+    }
+
+    // Fitur stok untuk Robux dan Bound
+    let stokRobux = 10;
+    let stokBound = 5;
+
+    function beliRobux() {
+      if (stokRobux > 0) {
+        stokRobux--;
+        document.getElementById('stok-robux').innerText = stokRobux;
+        window.open('https://wa.me/62895351679334?text=permisi%20saya%20mau%20beli%20robux', '_blank');
+      } else {
+        alert('Stok Robux habis!');
+      }
+    }
+
+    function beliBound() {
+      if (stokBound > 0) {
+        stokBound--;
+        document.getElementById('stok-bound').innerText = stokBound;
+        window.open('https://wa.me/62895351679334?text=permisi%20saya%20mau%20beli%20bound', '_blank');
+      } else {
+        alert('Stok Bound habis!');
+      }
+    }
+
+    // Fungsi untuk meminta QRIS Allpay
+    function requestQris() {
+      window.open('https://wa.me/62895351679334?text=Halo,%20saya%20ingin%20meminta%20QRIS%20Allpay%20untuk%20pembayaran.', '_blank');
+    }
+
+    // Fitur Ulasan dan Rating
+    document.querySelectorAll('.stars .star').forEach(star => {
+      star.addEventListener('click', function() {
+        const product = this.closest('.rating-section').dataset.product;
+        const rating = parseInt(this.dataset.value);
+        setRating(product, rating);
+      });
+    });
+
+    function setRating(product, rating) {
+      const starsContainer = document.querySelector(`.stars[data-product="${product}"]`);
+      starsContainer.querySelectorAll('.star').forEach((star, index) => {
+        if (index < rating) {
+          star.style.color = 'gold';
+        } else {
+          star.style.color = 'white';
+        }
+      });
+      // Simpan rating sementara di elemen untuk submit
+      starsContainer.dataset.currentRating = rating;
+    }
+
+    function submitReview(product) {
+      const reviewTextElement = document.querySelector(`.rating-section[data-product="${product}"] .review-text`);
+      const reviewText = reviewTextElement.value.trim();
+      const starsContainer = document.querySelector(`.stars[data-product="${product}"]`);
+      const rating = parseInt(starsContainer.dataset.currentRating || 0); // Ambil rating yang dipilih
+
+      if (reviewText === "" && rating === 0) {
+        alert("Mohon berikan rating atau tulis ulasan Anda.");
+        return;
+      }
+
+      if (!productReviews[product]) {
+        productReviews[product] = [];
+      }
+
+      const newReview = {
+        text: reviewText,
+        rating: rating,
+        date: new Date().toLocaleDateString()
+      };
+
+      productReviews[product].push(newReview);
+      localStorage.setItem("anom_reviews", JSON.stringify(productReviews));
+
+      reviewTextElement.value = ""; // Bersihkan textarea
+      setRating(product, 0); // Reset rating visual
+      displayReviews(product); // Tampilkan ulasan terbaru
+      alert("Ulasan Anda berhasil dikirim!");
+    }
+
+    function displayReviews(product) {
+      const reviewsListElement = document.getElementById(`reviews-${product}`);
+      if (!reviewsListElement) return;
+
+      reviewsListElement.innerHTML = ''; // Bersihkan daftar ulasan sebelumnya
+
+      if (productReviews[product] && productReviews[product].length > 0) {
+        productReviews[product].forEach(review => {
+          const reviewDiv = document.createElement('div');
+          reviewDiv.style.borderTop = '1px solid #555';
+          reviewDiv.style.paddingTop = '10px';
+          reviewDiv.style.marginTop = '10px';
+
+          const ratingStars = '&#9733;'.repeat(review.rating) + '&#9734;'.repeat(5 - review.rating);
+          reviewDiv.innerHTML = `
+            <p style="margin: 0;">Rating: <span style="color: gold;">${ratingStars}</span></p>
+            <p style="margin: 5px 0;">"${review.text}"</p>
+            <small style="color: #aaa;">Tanggal: ${review.date}</small>
+          `;
+          reviewsListElement.appendChild(reviewDiv);
+        });
+      } else {
+        reviewsListElement.innerHTML = '<p style="color: #aaa;">Belum ada ulasan untuk produk ini.</p>';
+      }
+    }
+
+    function loadReviews() {
+      // Panggil displayReviews untuk setiap produk saat halaman dimuat
+      document.querySelectorAll('.rating-section').forEach(section => {
+        const product = section.dataset.product;
+        displayReviews(product);
+      });
+    }
+
+    showLoginForm();
+  </script>
+</body>
